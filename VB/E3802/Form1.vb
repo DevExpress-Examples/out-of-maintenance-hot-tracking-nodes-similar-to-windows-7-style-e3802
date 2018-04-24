@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
 Imports System.ComponentModel
 Imports System.Data
@@ -20,15 +19,16 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraTreeList.ViewInfo
 
 
-Namespace treelistexample
+Namespace treelist
     Partial Public Class Form1
         Inherits Form
+
         Public Sub New()
             InitializeComponent()
         End Sub
         Private dataSource As BindingList(Of Record)
-        Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-            dataSource = CreateObjectSource(5, 5)
+        Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles Me.Load
+            dataSource = CreateObjectSource(5,5)
             treeList1.DataSource = dataSource
             treeList1.ExpandAll()
             Dim helper As New HotTrackHelper(treeList1)
@@ -42,7 +42,7 @@ Namespace treelistexample
             For i As Integer = 1 To master - 1
                 count += 1
                 Dim parentId As Integer = count
-                list.Add(New Record(count, 0, "root" & i))
+                list.Add(New Record(count, 0,"root" & i))
                 For j As Integer = 1 To child - 1
                     count += 1
                     list.Add(New Record(count, parentId, "Child" & j))

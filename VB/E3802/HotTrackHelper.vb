@@ -1,5 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
+﻿Imports System
 Imports System.Collections.Generic
 
 Imports System.Text
@@ -10,17 +9,17 @@ Imports DevExpress.XtraTreeList.ViewInfo
 Imports System.Drawing
 Imports DevExpress.XtraEditors.ViewInfo
 
-Namespace treelistexample
+Namespace treelist
     Friend Class HotTrackHelper
-        Private Tree As DevExpress.XtraTreeList.TreeList
+        Private Tree As TreeList
         Private hotNode As TreeListNode
 
 
-        Public Sub New(ByVal treeList As DevExpress.XtraTreeList.TreeList)
+        Public Sub New(ByVal treeList As TreeList)
 
             Attach(treeList)
         End Sub
-        Public Sub Attach(ByVal treeList As DevExpress.XtraTreeList.TreeList)
+        Public Sub Attach(ByVal treeList As TreeList)
             Tree = treeList
             AddHandler Tree.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
             AddHandler Tree.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
@@ -32,11 +31,13 @@ Namespace treelistexample
 
         Private Sub Tree_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
             Dim hi As TreeListHitTest = Tree.ViewInfo.GetHitTest(e.Location)
-            If hotNode IsNot hi.Node Then
-                Tree.RefreshNode(hotNode)
-                hotNode = hi.Node
-                Tree.RefreshNode(hotNode)
+            If True Then
+                If hotNode IsNot hi.Node Then
+                    Tree.RefreshNode(hotNode)
+                    hotNode = hi.Node
+                    Tree.RefreshNode(hotNode)
 
+                End If
             End If
         End Sub
 
@@ -50,7 +51,7 @@ Namespace treelistexample
         End Sub
 
         Private Sub DrawBackGround(ByVal node As TreeListNode, ByVal e As CustomDrawEventArgs)
-            If hotNode IsNot node AndAlso (Not node.Focused) Then
+            If hotNode IsNot node AndAlso Not node.Focused Then
                 Return
             End If
             Dim backButton As New SimpleButton()

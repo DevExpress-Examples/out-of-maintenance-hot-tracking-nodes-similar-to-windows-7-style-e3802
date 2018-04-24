@@ -1,6 +1,4 @@
-﻿Imports Microsoft.VisualBasic
-Imports System
-Namespace treelistexample
+﻿Namespace treelist
     Partial Public Class Form1
         ''' <summary>
         ''' Required designer variable.
@@ -18,7 +16,7 @@ Namespace treelistexample
             MyBase.Dispose(disposing)
         End Sub
 
-#Region "Windows Form Designer generated code"
+        #Region "Windows Form Designer generated code"
 
         ''' <summary>
         ''' Required method for Designer support - do not modify
@@ -33,7 +31,7 @@ Namespace treelistexample
             ' 
             ' treeList1
             ' 
-            Me.treeList1.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() {Me.treeListColumn1, Me.treeListColumn2})
+            Me.treeList1.Columns.AddRange(New DevExpress.XtraTreeList.Columns.TreeListColumn() { Me.treeListColumn1, Me.treeListColumn2})
             Me.treeList1.Dock = System.Windows.Forms.DockStyle.Fill
             Me.treeList1.Location = New System.Drawing.Point(0, 0)
             Me.treeList1.Name = "treeList1"
@@ -62,18 +60,17 @@ Namespace treelistexample
             ' 
             ' Form1
             ' 
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0F, 13.0F)
+            Me.AutoScaleDimensions = New System.Drawing.SizeF(6F, 13F)
             Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
             Me.ClientSize = New System.Drawing.Size(352, 410)
             Me.Controls.Add(Me.treeList1)
             Me.Name = "Form1"
-            '			Me.Load += New System.EventHandler(Me.Form1_Load);
             CType(Me.treeList1, System.ComponentModel.ISupportInitialize).EndInit()
             Me.ResumeLayout(False)
 
         End Sub
 
-#End Region
+        #End Region
 
         Private treeList1 As DevExpress.XtraTreeList.TreeList
         Private treeListColumn1 As DevExpress.XtraTreeList.Columns.TreeListColumn

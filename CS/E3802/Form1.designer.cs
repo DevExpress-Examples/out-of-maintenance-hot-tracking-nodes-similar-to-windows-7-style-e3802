@@ -42,10 +42,6 @@
             this.treeList1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeList1.Location = new System.Drawing.Point(0, 0);
             this.treeList1.Name = "treeList1";
-            this.treeList1.OptionsView.ShowFocusedFrame = false;
-            this.treeList1.OptionsView.ShowHorzLines = false;
-            this.treeList1.OptionsView.ShowIndicator = false;
-            this.treeList1.OptionsView.ShowVertLines = false;
             this.treeList1.Size = new System.Drawing.Size(352, 410);
             this.treeList1.TabIndex = 0;
             // 

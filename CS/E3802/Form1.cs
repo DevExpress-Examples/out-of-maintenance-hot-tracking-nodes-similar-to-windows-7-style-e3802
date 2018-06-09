@@ -36,8 +36,6 @@ namespace treelist
             HotTrackHelper helper = new HotTrackHelper(treeList1);
         }
 
-
-
         BindingList<Record> CreateObjectSource(int master, int child)
         {
             int count = 0;
@@ -73,6 +71,5 @@ namespace treelist
                 _value = value;
             }
         }
-
     }
 }

@@ -34,8 +34,6 @@ Namespace treelist
             Dim helper As New HotTrackHelper(treeList1)
         End Sub
 
-
-
         Private Function CreateObjectSource(ByVal master As Integer, ByVal child As Integer) As BindingList(Of Record)
             Dim count As Integer = 0
             Dim list As New BindingList(Of Record)()
@@ -87,6 +85,5 @@ Namespace treelist
                 _value = value
             End Sub
         End Class
-
     End Class
 End Namespace

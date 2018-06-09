@@ -8,71 +8,74 @@ Imports DevExpress.XtraEditors
 Imports DevExpress.XtraTreeList.ViewInfo
 Imports System.Drawing
 Imports DevExpress.XtraEditors.ViewInfo
+Imports DevExpress.XtraEditors.Controls
+Imports DevExpress.XtraEditors.Drawing
 
 Namespace treelist
     Friend Class HotTrackHelper
-        Private Tree As TreeList
+        Private fTreeList As TreeList
         Private hotNode As TreeListNode
-
+        Private customButtonPainter As SkinEditorButtonPainter
+        Private args As EditorButtonObjectInfoArgs
 
         Public Sub New(ByVal treeList As TreeList)
-
             Attach(treeList)
         End Sub
         Public Sub Attach(ByVal treeList As TreeList)
-            Tree = treeList
-            AddHandler Tree.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
-            AddHandler Tree.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
-            AddHandler Tree.MouseMove, AddressOf Tree_MouseMove
+            fTreeList = treeList
+            AddHandler fTreeList.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
+            AddHandler fTreeList.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
+            AddHandler fTreeList.MouseMove, AddressOf Tree_MouseMove
 
-            Tree.OptionsSelection.EnableAppearanceFocusedCell = False
-
+            fTreeList.OptionsSelection.EnableAppearanceFocusedCell = False
+            CreateButtonInfoArgs()
+            CreateButtonPainter()
         End Sub
 
+        Private Sub CreateButtonInfoArgs()
+            Dim btn As New EditorButton(ButtonPredefines.Glyph)
+
+            args = New EditorButtonObjectInfoArgs(btn, New DevExpress.Utils.AppearanceObject())
+            args.Transparent = True
+        End Sub
+        Private Sub CreateButtonPainter()
+            customButtonPainter = New SkinEditorButtonPainter(DevExpress.LookAndFeel.UserLookAndFeel.Default.ActiveLookAndFeel)
+        End Sub
         Private Sub Tree_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs)
-            Dim hi As TreeListHitTest = Tree.ViewInfo.GetHitTest(e.Location)
+            Dim hi As TreeListHitTest = fTreeList.ViewInfo.GetHitTest(e.Location)
             If True Then
                 If hotNode IsNot hi.Node Then
-                    Tree.RefreshNode(hotNode)
+                    fTreeList.RefreshNode(hotNode)
                     hotNode = hi.Node
-                    Tree.RefreshNode(hotNode)
-
+                    fTreeList.RefreshNode(hotNode)
                 End If
             End If
         End Sub
-
         Private Sub Tree_CustomDrawNodeCell(ByVal sender As Object, ByVal e As CustomDrawNodeCellEventArgs)
-            DrawBackGround(e.Node, e)
+            DrawBackground(e.Node, e)
         End Sub
-
         Private Sub Tree_CustomDrawNodeIndent(ByVal sender As Object, ByVal e As CustomDrawNodeIndentEventArgs)
-            DrawBackGround(e.Node, e)
+            DrawBackground(e.Node, e)
             e.Handled = True
         End Sub
-
-        Private Sub DrawBackGround(ByVal node As TreeListNode, ByVal e As CustomDrawEventArgs)
+        Private Sub DrawBackground(ByVal node As TreeListNode, ByVal e As CustomDrawEventArgs)
             If hotNode IsNot node AndAlso Not node.Focused Then
                 Return
             End If
-            Dim backButton As New SimpleButton()
-            Tree.FindForm().Controls.Add(backButton)
-
-            Dim ri As RowInfo = Tree.ViewInfo.RowsInfo(node)
-            backButton.Bounds = ri.Bounds
-            Dim bm As New Bitmap(backButton.Width, backButton.Height)
-            backButton.DrawToBitmap(bm, New Rectangle(0, 0, bm.Width, bm.Height))
-            Dim rec As Rectangle = Rectangle.Intersect(ri.Bounds, e.Bounds)
-            rec.Offset(-ri.Bounds.X, -ri.Bounds.Y)
-            e.Graphics.DrawImage(bm, e.Bounds, rec, GraphicsUnit.Pixel)
-            Tree.FindForm().Controls.Remove(backButton)
+            SetUpButtonInfoArgs(e)
+            customButtonPainter.DrawObject(args)
+        End Sub
+        Private Sub SetUpButtonInfoArgs(ByVal e As CustomDrawEventArgs)
+            args.Cache = e.Cache
+            args.Bounds = e.Bounds
+            args.State = DevExpress.Utils.Drawing.ObjectState.Hot
         End Sub
         Public Sub Detach()
-            AddHandler Tree.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
-            AddHandler Tree.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
-            AddHandler Tree.MouseMove, AddressOf Tree_MouseMove
-            Tree.OptionsSelection.EnableAppearanceFocusedCell = True
-
+            RemoveHandler fTreeList.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
+            RemoveHandler fTreeList.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
+            RemoveHandler fTreeList.MouseMove, AddressOf Tree_MouseMove
+            fTreeList.OptionsSelection.EnableAppearanceFocusedCell = True
+            fTreeList = Nothing
         End Sub
-
     End Class
 End Namespace

@@ -1,3 +1,10 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Form1.cs](./CS/E3802/Form1.cs) (VB: [Form1.vb](./VB/E3802/Form1.vb))
+* [HotTrackHelper.cs](./CS/E3802/HotTrackHelper.cs) (VB: [HotTrackHelper.vb](./VB/E3802/HotTrackHelper.vb))
+* [Program.cs](./CS/E3802/Program.cs) (VB: [Program.vb](./VB/E3802/Program.vb))
+<!-- default file list end -->
 # Hot tracking nodes  similar to Windows 7 style
 
 

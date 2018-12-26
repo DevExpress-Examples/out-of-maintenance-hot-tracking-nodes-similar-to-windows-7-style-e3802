@@ -13,15 +13,15 @@ Imports DevExpress.XtraEditors.Drawing
 
 Namespace treelist
     Friend Class HotTrackHelper
-        Private fTreeList As TreeList
+        Private fTreeList As DevExpress.XtraTreeList.TreeList
         Private hotNode As TreeListNode
         Private customButtonPainter As SkinEditorButtonPainter
         Private args As EditorButtonObjectInfoArgs
 
-        Public Sub New(ByVal treeList As TreeList)
+        Public Sub New(ByVal treeList As DevExpress.XtraTreeList.TreeList)
             Attach(treeList)
         End Sub
-        Public Sub Attach(ByVal treeList As TreeList)
+        Public Sub Attach(ByVal treeList As DevExpress.XtraTreeList.TreeList)
             fTreeList = treeList
             AddHandler fTreeList.CustomDrawNodeIndent, AddressOf Tree_CustomDrawNodeIndent
             AddHandler fTreeList.CustomDrawNodeCell, AddressOf Tree_CustomDrawNodeCell
